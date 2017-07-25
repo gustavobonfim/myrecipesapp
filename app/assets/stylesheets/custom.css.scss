@@ -1,0 +1,48 @@
+$navbar-default-bg: #086bac;
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+.center {
+  text-align: center;
+}
+
+#logo {
+  float: left;
+  font-size: 1.7em;
+  color: #fbfcff;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  font-weight: bold;
+}
+
+#logo:hover {
+  color: #FBFFF1;
+  text-decoration: none;
+}
+
+#nav-text {
+  color: #fbfcff;
+}
+
+#honolulu {
+  background-color: #086bac;
+  color: #fbfcff;
+}
+
+.jumbotron {
+  background-image: asset-url('cover_image.jpg');
+  background-size: cover;
+  height: 300px;
+  color: #fbfcff;
+}
+
+.container-bg {
+  background-color: #fbfcff;
+}
+
+.footer {
+  border-top: 1px solid #086bac;
+  margin-top: 30px;
+  padding-top: 30px;
+}

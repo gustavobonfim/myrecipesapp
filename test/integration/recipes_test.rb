@@ -3,7 +3,8 @@ require 'test_helper'
 class RecipesTest < ActionDispatch::IntegrationTest
 
   def setup
-    @chef = Chef.create!(chefname: "John", email: "john@example.com")
+    @chef = Chef.create!(chefname: "John", email: "john@example.com",
+                    password: "password", password_confirmation: "password")
     @recipe1 = Recipe.create!(name: "Italian Food", description: "pasta cooker for 20 min in the oven", chef: @chef)
     @recipe2 = Recipe.create!(name: "Brazilian Food", description: "bread cooker for 20 min in the oven", chef: @chef)
   end

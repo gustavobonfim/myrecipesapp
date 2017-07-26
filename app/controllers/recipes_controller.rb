@@ -7,7 +7,6 @@ class RecipesController < ApplicationController
   end
 
   def show
-    @recipe = Recipe.find(params[:id])
   end
 
   def new
@@ -26,11 +25,9 @@ class RecipesController < ApplicationController
   end
 
   def edit
-    @recipe = Recipe.find(params[:id])
   end
 
   def update
-    @recipe = Recipe.find(params[:id])
     if @recipe.update(recipe_params)
       flash[:success] = "Recipe successfully updated"
       redirect_to recipe_path(@recipe)
@@ -40,7 +37,6 @@ class RecipesController < ApplicationController
   end
 
   def destroy
-    @recipe = Recipe.find(params[:id])
     if @recipe.destroy
       flash[:success] = "Recipe successfully deleted"
       redirect_to recipes_path

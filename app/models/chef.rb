@@ -15,5 +15,5 @@ class Chef < ApplicationRecord
   validates :password, presence: true,
                        length: {minimum: 8, maximum: 72},
                        allow_nil: true
-
+  default_scope -> {order(updated_at: :desc)}
 end

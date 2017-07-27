@@ -3,6 +3,15 @@
 <div class="">
   <p>Total de Receitas: <%= @recipes.count %></p>
 </div>
+
+
 <div class="container">
+  <div class="center">
+    <%= will_paginate %>
+  </div>
+
   <%= render 'recipe', obj: @recipes %>
+  <div class="center">
+    <%= will_paginate %>
+  </div>
 </div>

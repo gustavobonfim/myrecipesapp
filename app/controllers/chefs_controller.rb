@@ -16,13 +16,19 @@ class ChefsController < ApplicationController
   end
 
   def show
-
+    @chef = Chef.find(params[:id])
+    @first_name = first_name(@chef.chefname)
   end
 
   private
 
   def chef_params
     params.require(:chef).permit(:chefname, :email, :password, :password_confirmation)
+  end
 
+  private
+  
+  def first_name(name)
+    first_name = name.split(' ')[0]
   end
 end

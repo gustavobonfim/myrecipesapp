@@ -36,7 +36,9 @@ class ChefsController < ApplicationController
     end
   end
 
-
+  def index
+    @chefs = Chef.all
+  end
 
   private
 

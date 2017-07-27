@@ -1,0 +1,26 @@
+<%= render 'shared/page_title', title: "Listing all MyRecipes Chefs" %>
+
+<div class="container">
+  <% @chefs.each do |chef| %>
+    <div class="row">
+      <div class="col-sm-offset-2 col-sm-2">
+        <section class="chef-info btn-container-center btn-container-col-center">
+          <%= gravatar_for(chef, size: 120) %>
+        </section>
+      </div>
+      <div class="col-sm-6">
+        <div class="well">
+          <h5>The Chef <%= link_to "#{chef.chefname.capitalize}", chef_path(chef), class: "chef-title" %> has <%= pluralize(chef.recipes.count, "recipe") %></h5>
+          <hr />
+          <ul>
+            <% chef.recipes.each do |recipe| %>
+              <li id="listing">
+                <%= link_to "#{recipe.name}", recipe_path(recipe), target: "_blank"%>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

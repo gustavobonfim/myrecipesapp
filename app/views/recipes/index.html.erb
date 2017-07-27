@@ -1,4 +1,8 @@
 <%= render 'shared/page_title', title: "showing all recipes" %>
+
+<div class="">
+  <p>Total de Receitas: <%= @recipes.count %></p>
+</div>
 <div class="container">
   <% @recipes.each do |recipe| %>
     <div class="row">

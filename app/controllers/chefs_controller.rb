@@ -20,15 +20,33 @@ class ChefsController < ApplicationController
     @first_name = first_name(@chef.chefname)
   end
 
+  def edit
+    @chef = Chef.find(params[:id])
+    @first_name = first_name @chef.chefname
+  end
+
+  def update
+    @chef = Chef.find(params[:id])
+
+    if @chef.update(chef_params)
+      flash[:success] = "Your profile was successfully updated"
+      redirect_to @chef
+    else
+      render 'chefs/edit'
+    end
+  end
+
+
+
   private
 
   def chef_params
     params.require(:chef).permit(:chefname, :email, :password, :password_confirmation)
   end
 
-  private
-  
   def first_name(name)
     first_name = name.split(' ')[0]
   end
+
+
 end

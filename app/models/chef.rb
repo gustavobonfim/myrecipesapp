@@ -13,6 +13,7 @@ class Chef < ApplicationRecord
   has_many :recipes
   has_secure_password
   validates :password, presence: true,
-                       length: {minimum: 8, maximum: 72}
+                       length: {minimum: 8, maximum: 72},
+                       allow_nil: true
 
 end

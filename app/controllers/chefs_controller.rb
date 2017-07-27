@@ -41,6 +41,13 @@ class ChefsController < ApplicationController
     @chefs = Chef.paginate(page: params[:page], per_page: 3)
   end
 
+  def destroy
+    @chef = Chef.find(params[:id])
+    @chef.destroy
+    redirect_to chefs_path
+    flash[:danger] = "Chef and all recipes have been deleted"
+  end
+
   private
 
   def chef_params

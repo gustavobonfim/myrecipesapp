@@ -1,0 +1,37 @@
+<%= render 'shared/page_title', title: "Available Ingredients" %>
+
+<div class="container">
+  <div class="center">
+    <%= will_paginate %>
+  </div>
+  <% @ingredients.each do |ing| %>
+    <div class="row">
+      <div class="col-sm-2">
+        <table>
+          <tr>
+            <% if logged_in?  && current_chef.admin? %>
+              <%= link_to "Edit this ingredient", edit_ingredient_path(ing),
+                                              class: "btn btn-primary btn-sm btn-container-center btn-container-col-center" %>
+            <% end %>
+          </tr>
+        </table>
+      </div>
+      <div class="col-sm-8">
+        <div class="well">
+          <h5>The ingredient <%= link_to "#{ing.name.capitalize}", ingredient_path(ing), class: "chef-title" %> is present in <%= pluralize(ing.recipes.count, "recipe") %></h5>
+          <hr />
+          <ul>
+            <% ing.recipes.each do |recipe| %>
+              <li id="listing">
+                <%= link_to "#{recipe.name}", recipe_path(recipe), target: "_blank"%>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <div class="center">
+    <%= will_paginate %>
+  </div>
+</div>

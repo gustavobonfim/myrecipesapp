@@ -1,0 +1,5 @@
+<%= render 'shared/page_title', title: "Enter a New Ingredient" %>
+
+<% if logged_in? && current_chef.adim? %>
+  <%= render 'form' %>
+<% end %>

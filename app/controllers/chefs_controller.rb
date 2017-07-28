@@ -3,6 +3,7 @@ class ChefsController < ApplicationController
   before_action :set_chef, only: [:show, :edit, :update, :destroy]
   before_action :require_user, only: [:edit, :update, :destroy]
   before_action :require_same_user, only: [:edit, :update, :destroy]
+  before_action :require_admin, only: [:destroy]
 
   def new
     @chef = Chef.new
@@ -43,11 +44,13 @@ class ChefsController < ApplicationController
   end
 
   def destroy
-    @chef.destroy
-    # redirect_to url_for(:controller => :controller_name, :action => :action_name)
-    # destroy_session_after_delete_chef
-    redirect_to root_path
-    flash[:danger] = "Chef and all recipes have been deleted"
+    if !@chef.admin?
+      @chef.destroy
+      # redirect_to url_for(:controller => :controller_name, :action => :action_name)
+      destroy_session_after_delete_chef
+      redirect_to root_path
+      flash[:danger] = "Chef and all recipes have been deleted"
+    end
   end
 
   private
@@ -65,11 +68,17 @@ class ChefsController < ApplicationController
   end
 
   def require_same_user
-    if current_chef != @chef
+    if current_chef != @chef and !current_chef.admin?
       flash[:danger] = "You can not performace this action"
       redirect_to root_path
     end
   end
 
+  def require_admin
+    if logged_in? && !current_chef.admin?
+      flash[:danger] = "Only admin users can performace that action"
+      redirect_to root_path
+    end
+  end
 
 end

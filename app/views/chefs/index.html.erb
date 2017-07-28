@@ -12,10 +12,12 @@
             <%= gravatar_for(chef, size: 120) %>
           </tr>
           <tr>
-            <%= link_to "Delete this chef", chef_path(chef),
-                                            method: :delete,
-                                            data: {confirm: "Are you sure you want to delete?"},
-                                            class: "btn btn-danger btn-sm btn-container-center btn-container-col-center" %>
+            <% if logged_in?  && current_chef.admin? && !chef.admin? %>
+              <%= link_to "Delete this chef", chef_path(chef),
+                                              method: :delete,
+                                              data: {confirm: "Are you sure you want to delete?"},
+                                              class: "btn btn-danger btn-sm btn-container-center btn-container-col-center" %>
+            <% end %>
           </tr>
         </table>
       </div>

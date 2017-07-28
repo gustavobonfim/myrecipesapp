@@ -2,6 +2,10 @@ class SessionsController < ApplicationController
 
   def new
     #form to login
+    if logged_in?
+      flash[:warn] = "You are already logged in"
+      redirect_to root_path
+    end
   end
 
   def create

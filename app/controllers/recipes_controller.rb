@@ -1,6 +1,8 @@
 class RecipesController < ApplicationController
 
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
+  before_action :require_user, except: [:index, :show]
+  before_action :require_same_user, only: [:edit, :update, :destroy]
 
   def index
     # @recipes = Recipe.all
@@ -16,7 +18,7 @@ class RecipesController < ApplicationController
 
   def create
     @recipe = Recipe.new(recipe_params)
-    @recipe.chef = Chef.last
+    @recipe.chef = current_chef
     if @recipe.save
       flash[:success] = "Recipe was created successfully"
       redirect_to recipe_path(@recipe)
@@ -54,5 +56,12 @@ class RecipesController < ApplicationController
 
   def recipe_params
     params.require(:recipe).permit(:name, :description)
+  end
+
+  def require_same_user
+    if current_chef != @recipe.chef
+      flash[:danger] = "You can not performace this action"
+      redirect_to root_path
+    end
   end
 end

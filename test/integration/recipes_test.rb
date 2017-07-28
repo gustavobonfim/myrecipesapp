@@ -27,8 +27,10 @@ class RecipesTest < ActionDispatch::IntegrationTest
   end
 
   test "create new valid recipe" do
+    sign_in_as(@chef, "password")
     get new_recipe_path
     assert_template 'recipes/new'
+    session[:chef_id] = @chef.id
     name_of_recipe = 'chicken saute'
     description_of_recipe = 'chicken cooked in 20 min in the oven, serve the delicious meal!'
     assert_difference 'Recipe.count', 1 do
@@ -40,6 +42,7 @@ class RecipesTest < ActionDispatch::IntegrationTest
   end
 
   test "reject invalid recipe submissions" do
+    sign_in_as(@chef, "password")
     get new_recipe_path
     assert_template 'recipes/new'
     assert_no_difference 'Recipe.count' do
@@ -51,6 +54,7 @@ class RecipesTest < ActionDispatch::IntegrationTest
   end
 
   test "should get recipes show" do
+    sign_in_as(@chef, "password")
     get recipe_path(@recipe1)
     assert_template 'recipes/show'
     assert_match @recipe1.name.capitalize, response.body
@@ -62,6 +66,7 @@ class RecipesTest < ActionDispatch::IntegrationTest
   end
 
   test "valid edited recipe" do
+    sign_in_as(@chef, "password")
     get edit_recipe_path(@recipe1)
     assert_template 'recipes/edit'
     update_name_of_recipe = 'update name of recipe'
@@ -77,6 +82,7 @@ class RecipesTest < ActionDispatch::IntegrationTest
   end
 
   test "reject invalid edited recipe" do
+    sign_in_as(@chef, "password")
     get edit_recipe_path(@recipe1)
     assert_template 'recipes/edit'
     patch recipe_path(@recipe1), params: {recipe: {name: "", description: ""}}
@@ -86,6 +92,7 @@ class RecipesTest < ActionDispatch::IntegrationTest
   end
 
   test "should delete recipe" do
+    sign_in_as(@chef, "password")
     get recipe_path(@recipe1)
     assert_template 'recipes/show'
     assert_select "a[href=?]", recipe_path(@recipe1), text: "Delete this recipe"
@@ -95,5 +102,4 @@ class RecipesTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_not flash.empty?
   end
-
 end

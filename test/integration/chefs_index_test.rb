@@ -20,13 +20,15 @@ class ChefsIndexTest < ActionDispatch::IntegrationTest
   end
 
   test "should delete chef" do
+    sign_in_as(@chef1, "password1")
     get chefs_path
     assert_template 'chefs/index'
     assert_select "a[href=?]", chef_path(@chef1), text: "Delete this chef"
     assert_difference 'Chef.count', -1 do
       delete chef_path(@chef1)
     end
-    assert_redirected_to chefs_path
+    sign_out_after_destroy
+    assert_redirected_to root_path
     assert_not flash.empty?
   end
 end

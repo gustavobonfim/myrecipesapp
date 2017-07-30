@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 well">
+      <p><%= comment.description %></p>
+      <span class="quiet"><small>
+        Created: <%= time_ago_in_words(comment.created_at) %> ago by
+                          <em><%= comment.chef.chefname %></em>
+      </small></span>
+    </div>
+    <div class="col-sm-2">
+      <section class="chef-info center">
+        <%= gravatar_for(comment.chef, size: 40) %>
+      </section>
+    </div>
+  </div>
+</div>

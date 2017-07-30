@@ -13,7 +13,9 @@ Rails.application.routes.draw do
   # get '/recipes/:id', to: 'recipes#show', as: 'recipe'
 
 
-  resources :recipes
+  resources :recipes do
+    resources :comments, only: [:create]
+  end
 
   get '/signup', to: 'chefs#new', as: 'signup'
   resources :chefs, except:[:new]
